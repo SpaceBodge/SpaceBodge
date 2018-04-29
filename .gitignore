@@ -1,2 +1,5 @@
 build*
-
+OLD
+.idea*
+.ipr*
+.idea/
