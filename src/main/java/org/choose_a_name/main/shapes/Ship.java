@@ -1,6 +1,5 @@
 package org.choose_a_name.main.shapes;
 
-import org.choose_a_name.main.IPshape;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PShape;
@@ -31,16 +30,6 @@ public final class Ship<T extends PApplet> extends IPshape {
   diameter;
 
  private final T parentApplet;
-
-// public final IFunction.BiVFunction<HookablePApplet.KeyEventType, Integer> firingCallback = (eventType, keyCode) -> {
-//  if (eventType == HookablePApplet.KeyEventType.PRESSED && keyCode == ' ') {
-//   ((Asteroids)parentApplet).recurrentTaskExecutor.getOperands().add((ScreenObject<Asteroids>) new Bullet<T>(
-//    parentApplet,
-//    pos.copy(),
-//    arv.copy()
-//   ));
-//  }
-// };
 
  public Ship(T applet, float scaleFactor) {
   super(applet);
@@ -104,44 +93,6 @@ public final class Ship<T extends PApplet> extends IPshape {
 //   }
 //  }
 //  return false;
-// }
-
-// @Override
-// public void update() {
-//  //Input loop for held keys
-//  if (parentApplet.isKeyHeld(PConstants.LEFT)) updateHeading(-PConstants.PI/50f);
-//  if (parentApplet.isKeyHeld(PConstants.RIGHT)) updateHeading(PConstants.PI/50f);
-//  //Update velocity by heading if user is moving forward, otherwise continue with the velocity according to the last
-//  //heading that was activated with forward movement
-//  if (parentApplet.isKeyHeld(PConstants.UP)) {
-//   if (getInternalVelocity() < 10f) {
-//    updateVelocity(0.1f);
-//   }
-//   //TODO Fix weird bug with velocity bumps
-//   float
-//    xVel = (float)(vel.x + getInternalVelocity()*Math.cos(arv.x-PConstants.HALF_PI)),
-//    yVel =(float)(vel.y + getInternalVelocity()*Math.sin(arv.x-PConstants.HALF_PI)),
-//    newXVel = vel.x,
-//    newYVel = vel.y;
-//   if (xVel < 10f && xVel > -10f) newXVel = xVel;
-//   if (yVel < 10f && yVel > -10f) newYVel = yVel;
-//   vel.set(newXVel , newYVel);
-//  }
-//  boundCheck();
-//  //Update position by actual velocity
-//  pos.set(pos.x+vel.x, pos.y+vel.y);
-// }
-
-// @Override
-// public float getDiameter() { return this.diameter; }
-
-// @Override
-// public void draw() {
-//  parentApplet.pushMatrix();
-//  parentApplet.translate(pos.x-adjustedCentroid.x, pos.y-adjustedCentroid.y);
-////  parentApplet.rotate(arv.x);
-//  parentApplet.shape(ship);
-//  parentApplet.popMatrix();
 // }
 
  public PShape getShape() { return this.ship; }

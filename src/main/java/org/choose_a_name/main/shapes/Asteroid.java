@@ -1,6 +1,5 @@
 package org.choose_a_name.main.shapes;
 
-import org.choose_a_name.main.IPshape;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PShape;
