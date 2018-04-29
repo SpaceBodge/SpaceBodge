@@ -1,5 +1,6 @@
-build*
+build/
 OLD
 .idea*
 .ipr*
 .idea/
+.gradle/
