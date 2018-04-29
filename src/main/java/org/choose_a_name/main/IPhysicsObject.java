@@ -1,10 +1,11 @@
 package org.choose_a_name.main;
 
 import processing.core.PVector;
+import processing.core.PShape;
 
 public abstract class IPhysicsObject {
  public final PVector pos, vel, av;
- public IPhysicsObject(PShape shape, PVector pos, PVector vel, PVector av) {
+ public IPhysicsObject(PVector pos, PVector vel, PVector av) {
   this.pos = pos;
   this.vel = vel;
   this.av = av;
