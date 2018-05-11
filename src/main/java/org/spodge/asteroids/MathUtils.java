@@ -1,4 +1,4 @@
-package org.choose_a_name.main;
+package org.spodge.asteroids;
 
 public class MathUtils {
  /**Pseudo random float generation. Uses lossy casting from double to float*/

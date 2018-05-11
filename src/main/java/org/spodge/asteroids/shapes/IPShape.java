@@ -1,9 +1,9 @@
-package org.choose_a_name.main.shapes;
+package org.spodge.asteroids.shapes;
 
 import processing.core.PApplet;
 import processing.core.PShape;
 
-public abstract class IPshape <T extends PApplet> extends PShape {
+public abstract class IPShape<T extends PApplet> extends PShape {
  public final T parentApplet;
 
  protected abstract PShape getShape();
@@ -12,7 +12,7 @@ public abstract class IPshape <T extends PApplet> extends PShape {
   return parentApplet;
  }
 
- public IPshape(T parentApplet) {
+ public IPShape(T parentApplet) {
   this.parentApplet = parentApplet;
  }
 }

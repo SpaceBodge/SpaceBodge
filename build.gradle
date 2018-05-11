@@ -16,7 +16,7 @@ repositories {
 // export MESA_GLSL_VERSION_OVERRIDE=130 (if running MESA with AMD drivers)
 jar {
    manifest {
-      attributes 'Main-Class': 'org.choose_a_name.main.IOTSpaceInvaders'
+      attributes 'Main-Class': 'org.spodge.main.IOTSpaceInvaders'
    }
 }
 
