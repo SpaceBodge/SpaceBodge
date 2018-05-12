@@ -1,0 +1,87 @@
+diff --git a/Java-WebSocket/src/main/java/org/java_websocket/WebSocketImpl.java b/Java-WebSocket/src/main/java/org/java_websocket/WebSocketImpl.java
+index 32104af..57f0dd4 100644
+--- a/Java-WebSocket/src/main/java/org/java_websocket/WebSocketImpl.java
++++ b/Java-WebSocket/src/main/java/org/java_websocket/WebSocketImpl.java
+@@ -250,64 +250,24 @@ public class WebSocketImpl implements WebSocket {
+ 			HandshakeState handshakestate;
+ 			try {
+ 				if( role == Role.SERVER ) {
+-					if( draft == null ) {
+-						for( Draft d : knownDrafts ) {
+-							d = d.copyInstance();
+-							try {
+-								d.setParseMode( role );
+-								socketBuffer.reset();
+-								Handshakedata tmphandshake = d.translateHandshake( socketBuffer );
+-								if( !( tmphandshake instanceof ClientHandshake ) ) {
+-									closeConnectionDueToWrongHandshake( new InvalidDataException( CloseFrame.PROTOCOL_ERROR, "wrong http function" ) );
+-									return false;
+-								}
+-								ClientHandshake handshake = ( ClientHandshake ) tmphandshake;
+-								handshakestate = d.acceptHandshakeAsServer( handshake );
+-								if( handshakestate == HandshakeState.MATCHED ) {
+-									resourceDescriptor = handshake.getResourceDescriptor();
+-									ServerHandshakeBuilder response;
+-									try {
+-										response = wsl.onWebsocketHandshakeReceivedAsServer( this, d, handshake );
+-									} catch ( InvalidDataException e ) {
+-										closeConnectionDueToWrongHandshake( e );
+-										return false;
+-									} catch ( RuntimeException e ) {
+-										wsl.onWebsocketError( this, e );
+-										closeConnectionDueToInternalServerError( e );
+-										return false;
+-									}
+-									write( d.createHandshake( d.postProcessHandshakeResponseAsServer( handshake, response ), role ) );
+-									draft = d;
+-									open( handshake );
+-									return true;
+-								}
+-							} catch ( InvalidHandshakeException e ) {
+-								// go on with an other draft
+-							}
+-						}
+-						if( draft == null ) {
+-							closeConnectionDueToWrongHandshake( new InvalidDataException( CloseFrame.PROTOCOL_ERROR, "no draft matches" ) );
+-						}
+-						return false;
+-					} else {
+-						// special case for multiple step handshakes
+-						Handshakedata tmphandshake = draft.translateHandshake( socketBuffer );
+-						if( !( tmphandshake instanceof ClientHandshake ) ) {
+-							flushAndClose( CloseFrame.PROTOCOL_ERROR, "wrong http function", false );
+-							return false;
+-						}
+-						ClientHandshake handshake = ( ClientHandshake ) tmphandshake;
+-						handshakestate = draft.acceptHandshakeAsServer( handshake );
+-
+-						if( handshakestate == HandshakeState.MATCHED ) {
+-							open( handshake );
+-							return true;
+-						} else {
+-							close( CloseFrame.PROTOCOL_ERROR, "the handshake did finaly not match" );
+-						}
+-						return false;
+-					}
+-				} else if( role == Role.CLIENT ) {
++                    System.out.println("Start HACK");
++                    Draft d = knownDrafts.get(0);
++                    d.setParseMode( role );
++                    socketBuffer.reset();
++                    Handshakedata tmphandshake = d.translateHandshake( socketBuffer );
++                    ClientHandshake handshake = ( ClientHandshake ) tmphandshake;
++                    handshakestate = d.acceptHandshakeAsServer( handshake );
++                    try {
++                        ServerHandshakeBuilder response = wsl.onWebsocketHandshakeReceivedAsServer( this, d, handshake );
++                        write( d.createHandshake( d.postProcessHandshakeResponseAsServer( handshake, response ), role ) );
++                        draft = d;
++                        open( handshake );
++                    } catch (InvalidDataException e) {
++                        e.printStackTrace();
++                    }
++                    System.out.println("End HACK");
++                    return true;
++				} else if(role == Role.CLIENT) {
+ 					draft.setParseMode( role );
+ 					Handshakedata tmphandshake = draft.translateHandshake( socketBuffer );
+ 					if( !( tmphandshake instanceof ServerHandshake ) ) {
